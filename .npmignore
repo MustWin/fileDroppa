@@ -4,6 +4,7 @@ build
 gulp-tasks
 logs
 tests
+demo_fileDroppa.gif
 
 # Node generated files
 node_modules
