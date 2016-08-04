@@ -1,10 +1,10 @@
 {
-  "name": "mustwin-file-droppa",
+  "name": "file-droppa",
   "version": "0.9.0",
   "description": "Angular2 (ng2) Files dropable area plus list of files",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/MustWin/fileDroppa.git"
+    "url": "git+ssh://git@github.com/ptkach/fileDroppa.git"
   },
   "scripts": {
     "tsc": "tsc",
