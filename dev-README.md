@@ -1,0 +1,4 @@
+### Setup app
+```
+npm install
+```

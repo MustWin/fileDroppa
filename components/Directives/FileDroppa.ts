@@ -78,7 +78,9 @@ export default class FileDroppa {
     @Input() showFilesList:boolean = true;
     @Input() autoUpload:boolean = false;
     @Input() beforeRequest:Function = null;
-    @Input() url:string = null;
+    @Input() set url(tmpUrl: string) {
+      this.fileUploadService.url = tmpUrl;
+    }
     @Input() beforeFileUpload:Function = null;
     @Input() beforeAddFile:Function = null;
     @Input() dropZoneTemplate:string = `
@@ -116,7 +118,6 @@ export default class FileDroppa {
         this.filesStore.beforeAddFile = (typeof this.beforeAddFile==="function") ? this.beforeAddFile : (file) => true;
         this.fileUploadService.beforeRequest = this.beforeRequest;
         this.fileUploadService.beforeFileUpload = (typeof this.beforeFileUpload==="function") ? this.beforeFileUpload : (formData) => true;
-        this.fileUploadService.url = this.url;
     }
 
     removeAllFiles() {
@@ -127,4 +128,3 @@ export default class FileDroppa {
         this.fileUploadService.uploadFiles(this.filesStore.iFiles);
     }
 }
-
