@@ -8,42 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const File_1 = require('./File');
-const FileStore_service_1 = require("../Services/FileStore.service");
-let FileList = class FileList {
-    constructor(filesStore) {
+var core_1 = require('@angular/core');
+var File_1 = require('./File');
+var FileStore_service_1 = require("../Services/FileStore.service");
+var FileList = (function () {
+    function FileList(filesStore) {
         this.filesStore = filesStore;
     }
-    removeFile(iFile) {
+    FileList.prototype.removeFile = function (iFile) {
         this.filesStore.removeFiles(iFile);
-    }
-};
-FileList = __decorate([
-    core_1.Component({
-        selector: 'fileList, [fileList]',
-        directives: [File_1.File],
-        styles: [`
-        .file-list {
-            width: 430px;
-            margin-bottom: 5px;
-            display: flex;
-            flex-flow: wrap;
-            justify-content: flex-start;
-         }
-    `],
-        template: `
-        <div class="file-list">
-            <fileItem *ngFor="let file of filesStore.iFiles"
-                [file]="file.File"
-                [percentage]="file.percentage"
-                [loadingSuccessful]="file.loadingSuccessful"
-                [responseMessage]="file.responseMessage"
-                (removeFile)="removeFile(file)">
-            </fileItem>
-        </div>
-    `
-    }), 
-    __metadata('design:paramtypes', [FileStore_service_1.FilesStore])
-], FileList);
+    };
+    FileList = __decorate([
+        core_1.Component({
+            selector: 'fileList, [fileList]',
+            directives: [File_1.File],
+            styles: ["\n        .file-list {\n            width: 430px;\n            margin-bottom: 5px;\n            display: flex;\n            flex-flow: wrap;\n            justify-content: flex-start;\n         }\n    "],
+            template: "\n        <div class=\"file-list\">\n            <fileItem *ngFor=\"let file of filesStore.iFiles\"\n                [file]=\"file.File\"\n                [percentage]=\"file.percentage\"\n                [loadingSuccessful]=\"file.loadingSuccessful\"\n                [responseMessage]=\"file.responseMessage\"\n                (removeFile)=\"removeFile(file)\">\n            </fileItem>\n        </div>\n    "
+        }), 
+        __metadata('design:paramtypes', [FileStore_service_1.FilesStore])
+    ], FileList);
+    return FileList;
+}());
 exports.FileList = FileList;

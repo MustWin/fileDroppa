@@ -8,39 +8,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-let FileUpload = class FileUpload {
-    constructor() {
+var core_1 = require("@angular/core");
+var FileUpload = (function () {
+    function FileUpload() {
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.url = null;
         this.beforeRequest = null;
         this.beforeFileUpload = null;
         this.fileUploadedEvent = new core_1.EventEmitter(true);
     }
-    uploadFiles(iFiles) {
-        return Promise.all(iFiles.reduce((res, iFile) => {
-            return res.push(this.uploadFile(iFile)), res;
+    FileUpload.prototype.uploadFiles = function (iFiles) {
+        var _this = this;
+        return Promise.all(iFiles.reduce(function (res, iFile) {
+            return res.push(_this.uploadFile(iFile)), res;
         }, []));
-    }
-    uploadFile(iFile) {
+    };
+    FileUpload.prototype.uploadFile = function (iFile) {
+        var _this = this;
         if (!this.url) {
             throw "url to upload needs to be provided";
         }
         if (iFile.loading) {
             throw "Already under loading";
         }
-        let that = this, formData = new FormData();
-        const xhr = new XMLHttpRequest();
-        xhr.upload.onprogress = (event) => {
-            let progress = (event.loaded * 100) / event.total | 0;
-            this.zone.run(() => {
+        var that = this, formData = new FormData();
+        var xhr = new XMLHttpRequest();
+        xhr.upload.onprogress = function (event) {
+            var progress = (event.loaded * 100) / event.total | 0;
+            _this.zone.run(function () {
                 iFile.percentage = progress;
             });
         };
-        const pr = new Promise((resolve, reject) => {
+        var pr = new Promise(function (resolve, reject) {
             xhr.onload = xhr.onerror = function (e) {
-                that.zone.run(() => {
-                    if (this["status"] == 200) {
+                var _this = this;
+                that.zone.run(function () {
+                    if (_this["status"] == 200) {
                         iFile.loading = false;
                         iFile.loadingSuccessful = true;
                         resolve(true);
@@ -52,27 +55,28 @@ let FileUpload = class FileUpload {
                     }
                 });
             };
-        }).then((success) => {
-            this.fileUploadedEvent.emit([success, xhr.response, iFile]);
+        }).then(function (success) {
+            _this.fileUploadedEvent.emit([success, xhr.response, iFile]);
         });
         iFile.loading = true;
         xhr.open("POST", this.url, true);
         typeof this.beforeRequest === "function" && this.beforeRequest(xhr);
-        formData.append(`${iFile.File.name}`, iFile.File);
+        formData.append("" + iFile.File.name, iFile.File);
         if (typeof this.beforeFileUpload === "function") {
-            Promise.resolve(this.beforeFileUpload(formData)).then((formData) => {
+            Promise.resolve(this.beforeFileUpload(formData)).then(function (formData) {
                 formData && xhr.send(formData);
-                formData || console.warn(`beforeFileUpload didn't return formData for ${iFile.File.name} and upload was aborted`);
+                formData || console.warn("beforeFileUpload didn't return formData for " + iFile.File.name + " and upload was aborted");
             });
         }
         else {
             xhr.send(formData);
         }
         return pr;
-    }
-};
-FileUpload = __decorate([
-    core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
-], FileUpload);
+    };
+    FileUpload = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], FileUpload);
+    return FileUpload;
+}());
 exports.FileUpload = FileUpload;

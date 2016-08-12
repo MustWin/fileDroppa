@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const FileParser_service_1 = require("../Services/FileParser.service");
-const FileStore_service_1 = require("../Services/FileStore.service");
-let FileDropZone = class FileDropZone {
-    constructor(filesStore, el, fileParser) {
+var core_1 = require('@angular/core');
+var FileParser_service_1 = require("../Services/FileParser.service");
+var FileStore_service_1 = require("../Services/FileStore.service");
+var FileDropZone = (function () {
+    function FileDropZone(filesStore, el, fileParser) {
         this.filesStore = filesStore;
         this.el = el;
         this.fileParser = fileParser;
@@ -20,41 +20,44 @@ let FileDropZone = class FileDropZone {
         this.promise = null;
         this.createHiddenInput();
     }
-    onClick(e) {
+    FileDropZone.prototype.onClick = function (e) {
         this.hiddenFileInput && this.hiddenFileInput.click();
-    }
-    drop(e) {
+    };
+    FileDropZone.prototype.drop = function (e) {
+        var _this = this;
         e.preventDefault();
         if (!e.dataTransfer || !e.dataTransfer.files.length) {
             return;
         }
         this.promise = this.fileParser.processInputFromDrop(e)
-            .then((files) => {
-            this.updateFilesStore([...files]);
+            .then(function (files) {
+            _this.updateFilesStore(files.slice());
         });
         this.updateStyles();
-    }
-    dragenter(e) {
+    };
+    FileDropZone.prototype.dragenter = function (e) {
         e.preventDefault();
-    }
-    dragover(e) {
+    };
+    FileDropZone.prototype.dragover = function (e) {
         e.preventDefault();
         this.updateStyles(true);
-    }
-    dragleave(e) {
+    };
+    FileDropZone.prototype.dragleave = function (e) {
         e.preventDefault();
         this.updateStyles();
-    }
-    OnDestroy() {
+    };
+    FileDropZone.prototype.OnDestroy = function () {
         this.hiddenFileInput && document.body.removeChild(this.hiddenFileInput);
         this.hiddenFileInput = null;
-    }
-    updateStyles(dragOver = false) {
-    }
-    updateFilesStore(files) {
+    };
+    FileDropZone.prototype.updateStyles = function (dragOver) {
+        if (dragOver === void 0) { dragOver = false; }
+    };
+    FileDropZone.prototype.updateFilesStore = function (files) {
         this.filesStore.addFiles(files);
-    }
-    createHiddenInput() {
+    };
+    FileDropZone.prototype.createHiddenInput = function () {
+        var _this = this;
         this.hiddenFileInput && document.body.removeChild(this.hiddenFileInput);
         this.hiddenFileInput = document.createElement("input");
         this.hiddenFileInput.setAttribute("type", "file");
@@ -67,46 +70,32 @@ let FileDropZone = class FileDropZone {
         this.hiddenFileInput.style.width = "0";
         this.hiddenFileInput.className = "_hiddenInputClassName";
         document.body.appendChild(this.hiddenFileInput);
-        this.hiddenFileInput.addEventListener("change", (e) => {
-            let files = [];
-            for (let i = 0, l = e.target.files.length; i < l; i++) {
+        this.hiddenFileInput.addEventListener("change", function (e) {
+            var files = [];
+            for (var i = 0, l = e.target.files.length; i < l; i++) {
                 files.push(e.target.files[i]);
             }
-            this.hiddenFileInput.value = "";
-            this.updateFilesStore(files);
+            _this.hiddenFileInput.value = "";
+            _this.updateFilesStore(files);
         });
-    }
-};
-FileDropZone = __decorate([
-    core_1.Component({
-        selector: 'fileDropZone, [fileDropZone]',
-        providers: [FileParser_service_1.FileParser],
-        styles: [`
-        .file_dropZone_internal {
-            border: 3px dashed #DDD;
-            border-radius:10px;
-            padding:10px;
-            width:400px;
-            height:200px;
-            color:#CCC;
-            text-align:center;
-            display:table-cell;
-            vertical-align:middle;
-            cursor:pointer;
-        }
-    `],
-        template: `
-        <ng-content></ng-content>
-    `,
-        host: {
-            '(drop)': 'drop($event)',
-            '(dragenter)': 'dragenter($event)',
-            '(dragover)': 'dragover($event)',
-            '(dragleave)': 'dragleave($event)',
-            '(click)': 'onClick($event)'
-        },
-        encapsulation: core_1.ViewEncapsulation.None
-    }), 
-    __metadata('design:paramtypes', [FileStore_service_1.FilesStore, core_1.ElementRef, FileParser_service_1.FileParser])
-], FileDropZone);
+    };
+    FileDropZone = __decorate([
+        core_1.Component({
+            selector: 'fileDropZone, [fileDropZone]',
+            providers: [FileParser_service_1.FileParser],
+            styles: ["\n        .file_dropZone_internal {\n            border: 3px dashed #DDD;\n            border-radius:10px;\n            padding:10px;\n            width:400px;\n            height:200px;\n            color:#CCC;\n            text-align:center;\n            display:table-cell;\n            vertical-align:middle;\n            cursor:pointer;\n        }\n    "],
+            template: "\n        <ng-content></ng-content>\n    ",
+            host: {
+                '(drop)': 'drop($event)',
+                '(dragenter)': 'dragenter($event)',
+                '(dragover)': 'dragover($event)',
+                '(dragleave)': 'dragleave($event)',
+                '(click)': 'onClick($event)'
+            },
+            encapsulation: core_1.ViewEncapsulation.None
+        }), 
+        __metadata('design:paramtypes', [FileStore_service_1.FilesStore, core_1.ElementRef, FileParser_service_1.FileParser])
+    ], FileDropZone);
+    return FileDropZone;
+}());
 exports.FileDropZone = FileDropZone;

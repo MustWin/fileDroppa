@@ -1,6 +1,6 @@
 "use strict";
-class FileWrapper {
-    constructor(file) {
+var FileWrapper = (function () {
+    function FileWrapper(file) {
         this.loading = false;
         this.percentage = 0;
         this.removing = false;
@@ -10,5 +10,6 @@ class FileWrapper {
         this.uploader = null;
         this.File = file;
     }
-}
+    return FileWrapper;
+}());
 exports.FileWrapper = FileWrapper;

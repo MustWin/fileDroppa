@@ -8,18 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-let GetSizePipe = class GetSizePipe {
-    transform(value) {
-        let bytes = value || 0, sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], k = 1000, i = Math.floor(Math.log(bytes) / Math.log(k));
+var core_1 = require('@angular/core');
+var GetSizePipe = (function () {
+    function GetSizePipe() {
+    }
+    GetSizePipe.prototype.transform = function (value) {
+        var bytes = value || 0, sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], k = 1000, i = Math.floor(Math.log(bytes) / Math.log(k));
         if (bytes === 0) {
             return '0 Byte';
         }
         return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-    }
-};
-GetSizePipe = __decorate([
-    core_1.Pipe({ name: 'getSize' }), 
-    __metadata('design:paramtypes', [])
-], GetSizePipe);
+    };
+    GetSizePipe = __decorate([
+        core_1.Pipe({ name: 'getSize' }), 
+        __metadata('design:paramtypes', [])
+    ], GetSizePipe);
+    return GetSizePipe;
+}());
 exports.GetSizePipe = GetSizePipe;

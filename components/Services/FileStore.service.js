@@ -8,65 +8,76 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const FileWrapper_service_1 = require("./FileWrapper.service");
-let FilesStore = class FilesStore {
-    constructor() {
+var core_1 = require("@angular/core");
+var FileWrapper_service_1 = require("./FileWrapper.service");
+var FilesStore = (function () {
+    function FilesStore() {
         this.filesUpdated = new core_1.EventEmitter(true);
         this.startAutoUploading = null;
         this.beforeAddFile = null;
         this.WSfiles = new WeakSet();
         this._iFiles = [];
     }
-    get files() {
-        return this.iFiles.reduce((res, iFile) => {
-            res.push(iFile.File);
-            return res;
-        }, []);
-    }
-    get iFiles() {
-        return this._iFiles;
-    }
-    set iFiles(files) {
-        this._iFiles = files;
-    }
-    addFiles(files) {
-        files = files.filter((file) => {
-            if (!this.WSfiles.has(file)) {
-                if (typeof this.beforeAddFile === "function" && this.beforeAddFile(file)) {
-                    this.WSfiles.add(file);
+    Object.defineProperty(FilesStore.prototype, "files", {
+        get: function () {
+            return this.iFiles.reduce(function (res, iFile) {
+                res.push(iFile.File);
+                return res;
+            }, []);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FilesStore.prototype, "iFiles", {
+        get: function () {
+            return this._iFiles;
+        },
+        set: function (files) {
+            this._iFiles = files;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FilesStore.prototype.addFiles = function (files) {
+        var _this = this;
+        files = files.filter(function (file) {
+            if (!_this.WSfiles.has(file)) {
+                if (typeof _this.beforeAddFile === "function" && _this.beforeAddFile(file)) {
+                    _this.WSfiles.add(file);
                     return true;
                 }
-                else if (typeof this.beforeAddFile !== "function") {
+                else if (typeof _this.beforeAddFile !== "function") {
                     return true;
                 }
                 return false;
             }
-        }).map((file) => {
-            let iFile = new FileWrapper_service_1.FileWrapper(file);
-            this.startAutoUploading && this.startAutoUploading(iFile);
+        }).map(function (file) {
+            var iFile = new FileWrapper_service_1.FileWrapper(file);
+            _this.startAutoUploading && _this.startAutoUploading(iFile);
             return iFile;
         });
-        this.iFiles = [...this.iFiles, ...files];
+        this.iFiles = this.iFiles.concat(files);
         this.filesUpdated.emit(true);
-    }
-    removeFiles(iFile) {
+    };
+    FilesStore.prototype.removeFiles = function (iFile) {
         this.WSfiles.delete(iFile.File);
-        this.iFiles = this.iFiles.filter((item) => {
+        this.iFiles = this.iFiles.filter(function (item) {
             return item.id !== iFile.id;
         });
         this.filesUpdated.emit(true);
-    }
-    clearStore() {
-        this.iFiles.forEach((iFile) => {
-            this.WSfiles.delete(iFile.File);
+    };
+    FilesStore.prototype.clearStore = function () {
+        var _this = this;
+        this.iFiles.forEach(function (iFile) {
+            _this.WSfiles.delete(iFile.File);
         });
         this.iFiles = [];
         this.filesUpdated.emit(true);
-    }
-};
-FilesStore = __decorate([
-    core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
-], FilesStore);
+    };
+    FilesStore = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], FilesStore);
+    return FilesStore;
+}());
 exports.FilesStore = FilesStore;
