@@ -41,6 +41,7 @@ var FileDroppa = (function () {
     }
     Object.defineProperty(FileDroppa.prototype, "beforeRequest", {
         set: function (tmpRequest) {
+            console.info('FileDroppa.beforeRequest', tmpRequest);
             this.fileUploadService.beforeRequest = tmpRequest;
         },
         enumerable: true,
@@ -48,6 +49,7 @@ var FileDroppa = (function () {
     });
     Object.defineProperty(FileDroppa.prototype, "url", {
         set: function (tmpUrl) {
+            console.info('FileDroppa.url', tmpUrl);
             this.fileUploadService.url = tmpUrl;
         },
         enumerable: true,
@@ -55,6 +57,7 @@ var FileDroppa = (function () {
     });
     Object.defineProperty(FileDroppa.prototype, "beforeFileUpload", {
         set: function (tmpFileUpload) {
+            console.info('FileDroppa.beforeFileUpload', tmpFileUpload);
             this.fileUploadService.beforeFileUpload = (typeof tmpFileUpload === "function") ? tmpFileUpload : function (formData) { return true; };
         },
         enumerable: true,
@@ -62,6 +65,7 @@ var FileDroppa = (function () {
     });
     Object.defineProperty(FileDroppa.prototype, "beforeAddFile", {
         set: function (tmpAddFile) {
+            console.info('FileDroppa.beforeAddFile', tmpAddFile);
             this.filesStore.beforeAddFile = (typeof tmpAddFile == "function") ? tmpAddFile : function (file) { return true; };
         },
         enumerable: true,
@@ -132,3 +136,4 @@ var FileDroppa = (function () {
 }());
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = FileDroppa;
+//# sourceMappingURL=FileDroppa.js.map

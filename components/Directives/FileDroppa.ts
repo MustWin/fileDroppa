@@ -78,15 +78,19 @@ export default class FileDroppa {
     @Input() showFilesList:boolean = true;
     @Input() autoUpload:boolean = false;
     @Input() set beforeRequest(tmpRequest: Function) {
+      console.info('FileDroppa.beforeRequest', tmpRequest);
       this.fileUploadService.beforeRequest = tmpRequest;
     }
     @Input() set url(tmpUrl: string) {
+      console.info('FileDroppa.url', tmpUrl);
       this.fileUploadService.url = tmpUrl;
     }
     @Input() set beforeFileUpload(tmpFileUpload: Function) {
+      console.info('FileDroppa.beforeFileUpload', tmpFileUpload);
       this.fileUploadService.beforeFileUpload = (typeof tmpFileUpload==="function") ? tmpFileUpload : (formData) => true;
     }
     @Input() set beforeAddFile(tmpAddFile: Function) {
+      console.info('FileDroppa.beforeAddFile', tmpAddFile);
       this.filesStore.beforeAddFile = (typeof tmpAddFile=="function") ? tmpAddFile : (file) => true;
     }
     @Input() dropZoneTemplate:string = `
