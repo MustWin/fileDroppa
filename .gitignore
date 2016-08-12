@@ -4,7 +4,6 @@
 npm-debug.log
 
 # type script artifacts
-/typings
 
 # WebStorm
 .idea
@@ -15,15 +14,9 @@ npm-debug.log
 /demo/*.js
 /demo/*.d.ts
 /demo/*.js.map
-/components/**/*.js
-/components/**/*.d.ts
 /components/**/*.js.map
 /tests/*.js
 /tests/*.d.ts
 /tests/*.js.map
-index.js
-index.d.ts
 index.js.map
 /logs
-
-
