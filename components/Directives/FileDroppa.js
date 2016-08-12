@@ -132,4 +132,3 @@ var FileDroppa = (function () {
 }());
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = FileDroppa;
-//# sourceMappingURL=FileDroppa.js.map
