@@ -77,12 +77,18 @@ import {FileUpload} from "../Services/FileUpload.service";
 export default class FileDroppa {
     @Input() showFilesList:boolean = true;
     @Input() autoUpload:boolean = false;
-    @Input() beforeRequest:Function = null;
+    @Input() set beforeRequest(tmpRequest: Function) {
+      this.fileUploadService.beforeRequest = tmpRequest;
+    }
     @Input() set url(tmpUrl: string) {
       this.fileUploadService.url = tmpUrl;
     }
-    @Input() beforeFileUpload:Function = null;
-    @Input() beforeAddFile:Function = null;
+    @Input() set beforeFileUpload(tmpFileUpload: Function) {
+      this.fileUploadService.beforeFileUpload = (typeof tmpFileUpload==="function") ? tmpFileUpload : (formData) => true;
+    }
+    @Input() set beforeAddFile(tmpAddFile: Function) {
+      this.filesStore.beforeAddFile = (typeof tmpAddFile=="function") ? tmpAddFile : (file) => true;
+    }
     @Input() dropZoneTemplate:string = `
                 <div class="file_dropZone_internal">
                     Drop Files Here
@@ -114,11 +120,7 @@ export default class FileDroppa {
     /**
      * We got to pass Input parameters to Service instances
      */
-    ngOnInit(){
-        this.filesStore.beforeAddFile = (typeof this.beforeAddFile==="function") ? this.beforeAddFile : (file) => true;
-        this.fileUploadService.beforeRequest = this.beforeRequest;
-        this.fileUploadService.beforeFileUpload = (typeof this.beforeFileUpload==="function") ? this.beforeFileUpload : (formData) => true;
-    }
+    ngOnInit(){ }
 
     removeAllFiles() {
         this.filesStore.clearStore();

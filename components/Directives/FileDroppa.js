@@ -20,9 +20,6 @@ var FileDroppa = (function () {
         this.fileUploadService = fileUploadService;
         this.showFilesList = true;
         this.autoUpload = false;
-        this.beforeRequest = null;
-        this.beforeFileUpload = null;
-        this.beforeAddFile = null;
         this.dropZoneTemplate = "\n                <div class=\"file_dropZone_internal\">\n                    Drop Files Here\n                </div>\n    ";
         this.filesUpdated = new core_1.EventEmitter(true);
         this.fileUploaded = new core_1.EventEmitter(true);
@@ -42,6 +39,13 @@ var FileDroppa = (function () {
         });
         filesStore.startAutoUploading = this.startAutoUploading.bind(this);
     }
+    Object.defineProperty(FileDroppa.prototype, "beforeRequest", {
+        set: function (tmpRequest) {
+            this.fileUploadService.beforeRequest = tmpRequest;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(FileDroppa.prototype, "url", {
         set: function (tmpUrl) {
             this.fileUploadService.url = tmpUrl;
@@ -49,14 +53,24 @@ var FileDroppa = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(FileDroppa.prototype, "beforeFileUpload", {
+        set: function (tmpFileUpload) {
+            this.fileUploadService.beforeFileUpload = (typeof tmpFileUpload === "function") ? tmpFileUpload : function (formData) { return true; };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FileDroppa.prototype, "beforeAddFile", {
+        set: function (tmpAddFile) {
+            this.filesStore.beforeAddFile = (typeof tmpAddFile == "function") ? tmpAddFile : function (file) { return true; };
+        },
+        enumerable: true,
+        configurable: true
+    });
     FileDroppa.prototype.startAutoUploading = function (iFile) {
         this.autoUpload && this.fileUploadService.uploadFile(iFile);
     };
-    FileDroppa.prototype.ngOnInit = function () {
-        this.filesStore.beforeAddFile = (typeof this.beforeAddFile === "function") ? this.beforeAddFile : function (file) { return true; };
-        this.fileUploadService.beforeRequest = this.beforeRequest;
-        this.fileUploadService.beforeFileUpload = (typeof this.beforeFileUpload === "function") ? this.beforeFileUpload : function (formData) { return true; };
-    };
+    FileDroppa.prototype.ngOnInit = function () { };
     FileDroppa.prototype.removeAllFiles = function () {
         this.filesStore.clearStore();
     };
@@ -73,8 +87,9 @@ var FileDroppa = (function () {
     ], FileDroppa.prototype, "autoUpload", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Function)
-    ], FileDroppa.prototype, "beforeRequest", void 0);
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Function])
+    ], FileDroppa.prototype, "beforeRequest", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String), 
@@ -82,12 +97,14 @@ var FileDroppa = (function () {
     ], FileDroppa.prototype, "url", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Function)
-    ], FileDroppa.prototype, "beforeFileUpload", void 0);
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Function])
+    ], FileDroppa.prototype, "beforeFileUpload", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Function)
-    ], FileDroppa.prototype, "beforeAddFile", void 0);
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [Function])
+    ], FileDroppa.prototype, "beforeAddFile", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
@@ -115,3 +132,4 @@ var FileDroppa = (function () {
 }());
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = FileDroppa;
+//# sourceMappingURL=FileDroppa.js.map
