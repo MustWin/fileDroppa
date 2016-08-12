@@ -4,6 +4,7 @@ build
 gulp-tasks
 logs
 tests
+demo_fileDroppa.gif
 
 # Node generated files
 node_modules
@@ -12,6 +13,6 @@ npm-debug.log
 Thumbs.db
 .DS_Store
 # Ignored files
-*.ts
+/**/*.ts
 *.map
 !*.d.ts

@@ -1,10 +1,10 @@
 {
   "name": "file-droppa",
-  "version": "0.6.8",
+  "version": "0.9.0",
   "description": "Angular2 (ng2) Files dropable area plus list of files",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ptkach/fileDroppa.git"
+    "url": "git+ssh://git@github.com/MustWin/fileDroppa.git"
   },
   "scripts": {
     "tsc": "tsc",
@@ -31,14 +31,14 @@
     }
   ],
   "dependencies": {
-    "@angular/common": "2.0.0-rc.3",
-    "@angular/compiler": "2.0.0-rc.3",
-    "@angular/core": "2.0.0-rc.3",
-    "@angular/http": "2.0.0-rc.3",
-    "@angular/platform-browser": "2.0.0-rc.3",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.3",
-    "@angular/platform-server": "2.0.0-rc.3",
-    "@angular/router": "2.0.0-rc.2",
+    "@angular/common": "2.0.0-rc.5",
+    "@angular/compiler": "2.0.0-rc.5",
+    "@angular/core": "2.0.0-rc.5",
+    "@angular/http": "2.0.0-rc.5",
+    "@angular/platform-browser": "2.0.0-rc.5",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.5",
+    "@angular/platform-server": "2.0.0-rc.5",
+    "@angular/router": "3.0.0-rc.1",
     "core-js": "^2.2.0",
     "es6-shim": "^0.35.1",
     "rxjs": "5.0.0-beta.6",
