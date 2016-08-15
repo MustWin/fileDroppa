@@ -56,7 +56,7 @@ var FileUpload = (function () {
                 });
             };
         }).then(function (success) {
-            _this.fileUploadedEvent.emit([success, xhr.response, iFile]);
+            _this.fileUploadedEvent.emit([success, xhr.response, iFile, xhr]);
         });
         iFile.loading = true;
         xhr.open("POST", this.url, true);

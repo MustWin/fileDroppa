@@ -49,7 +49,7 @@ export class FileUpload {
                 })
             };
         }).then((success)=>{
-            this.fileUploadedEvent.emit([success, xhr.response, iFile]);
+            this.fileUploadedEvent.emit([success, xhr.response, iFile, xhr]);
         });
 
         iFile.loading = true;
@@ -74,4 +74,4 @@ export class FileUpload {
     }
 
 
-}     
+}
