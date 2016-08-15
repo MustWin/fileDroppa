@@ -105,14 +105,14 @@ export default class FileDroppa {
         filesStore.filesUpdated.subscribe(()=>{
             this.filesUpdated.emit(filesStore.files);
         });
-        fileUploadService.fileUploadedEvent.subscribe(([success, response, iFile])=>{
+        fileUploadService.fileUploadedEvent.subscribe(([success, response, iFile, xhr])=>{
             if(success){
                 this.filesStore.removeFiles(iFile);
             } else {
                 iFile.loadingSuccessful = false;
                 iFile.responseText = false;
             }
-            this.fileUploaded.emit([success, response, iFile.file]);
+            this.fileUploaded.emit([success, response, iFile.file, xhr]);
         });
         filesStore.startAutoUploading = this.startAutoUploading.bind(this);
     }

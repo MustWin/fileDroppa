@@ -27,7 +27,7 @@ var FileDroppa = (function () {
             _this.filesUpdated.emit(filesStore.files);
         });
         fileUploadService.fileUploadedEvent.subscribe(function (_a) {
-            var success = _a[0], response = _a[1], iFile = _a[2];
+            var success = _a[0], response = _a[1], iFile = _a[2], xhr = _a[3];
             if (success) {
                 _this.filesStore.removeFiles(iFile);
             }
@@ -35,7 +35,7 @@ var FileDroppa = (function () {
                 iFile.loadingSuccessful = false;
                 iFile.responseText = false;
             }
-            _this.fileUploaded.emit([success, response, iFile.file]);
+            _this.fileUploaded.emit([success, response, iFile.file, xhr]);
         });
         filesStore.startAutoUploading = this.startAutoUploading.bind(this);
     }
